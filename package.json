@@ -1,0 +1,29 @@
+{
+  "name": "petuniverse-connect",
+  "version": "1.0.0",
+  "description": "A RESTful backend API built with **Node.js**, **Express**, and **Prisma ORM** to power a comprehensive pet care platform. This service supports pet profile management, health records, reminders, and a social forum for pet owners.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mo-renike/petUniverse-backend.git"
+  },
+  "keywords": [
+    "pet-care"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mo-renike/petUniverse-backend/issues"
+  },
+  "homepage": "https://github.com/mo-renike/petUniverse-backend#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
