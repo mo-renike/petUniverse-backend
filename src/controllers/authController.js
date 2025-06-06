@@ -12,13 +12,58 @@ export const register = async (req, res) => {
 
         const { email, password, username, firstName, lastName, role } = req.body;
 
+        // Validate required fields
+        const missingFields = [];
+        if (!email) missingFields.push('email');
+        if (!password) missingFields.push('password');
+        if (!username) missingFields.push('username');
+        if (!firstName) missingFields.push('firstName');
+        if (!lastName) missingFields.push('lastName');
+
+        if (missingFields.length > 0) {
+            return res.status(400).json({
+                message: 'Missing required fields',
+                missingFields: missingFields
+            });
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                message: 'Invalid email format'
+            });
+        }
+
+        // Validate password strength
+        if (password.length < 8) {
+            return res.status(400).json({
+                message: 'Password must be at least 8 characters long'
+            });
+        }
+
         // Check if user already exists
         const existingUser = await prisma.user.findUnique({
             where: { email }
         });
 
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({
+                message: 'User with this email already exists',
+                field: 'email'
+            });
+        }
+
+        // Check if username is taken
+        const existingUsername = await prisma.user.findFirst({
+            where: { username }
+        });
+
+        if (existingUsername) {
+            return res.status(400).json({
+                message: 'Username is already taken',
+                field: 'username'
+            });
         }
 
         // Hash password
@@ -56,7 +101,10 @@ export const register = async (req, res) => {
             }
         });
     } catch (error) {
-        res.status(500).json({ message: 'Error registering user', error: error.message });
+        res.status(500).json({
+            message: 'Error registering user',
+            error: error.message
+        });
     }
 };
 

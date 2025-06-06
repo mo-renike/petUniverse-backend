@@ -15,9 +15,8 @@ app.use('/api/auth', authRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to PetUniverse Connect API');
 });
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Something went wrong!' });
-});
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.listen(PORT, async () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
