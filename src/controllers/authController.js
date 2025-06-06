@@ -1,8 +1,7 @@
-
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
-import prisma from '../utils/prisma';
+import { prisma } from '../utils/prisma.js';
 
 export const register = async (req, res) => {
     try {
