@@ -25,10 +25,9 @@ PetUniverse Connect is a centralized backend system designed to support a multi-
 
 - Modular, scalable code structure
 - Secure authentication with bcrypt & JWT
-- Relational data management with Prisma ORM & PostgreSQL
+- Relational data management with Prisma ORM & MySQL
 - Built-in notification scheduling using `node-cron`
 - Follows REST principles and best practices
-- Auto-generated API docs with Swagger (optional)
 
 ---
 
@@ -66,7 +65,7 @@ npm install
 ### 4. Setup environment variables
 Create a `.env` file based on `.env.example`:
 ```bash
-DATABASE_URL=postgresql://username:password@localhost:5432/petuniverse
+DATABASE_URL=mysql://username:password@localhost:3306/petuniverse
 JWT_SECRET=your_super_secret_key
 PORT=3000
 ```
