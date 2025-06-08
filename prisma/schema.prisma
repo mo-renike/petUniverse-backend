@@ -24,8 +24,27 @@ model User {
   lastName  String
   username  String   @unique
   role      UserRole @default(PET_OWNER)
+
+  VetProfile    VetProfile?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
 } 
+model VetProfile {
+  id String @id @default(uuid())
+  specialization   String
+  yearsExperience Int @map("years_experience")
+  location        String
+  phoneNumber     Int
+  email           String
+  availability    Json?
+  bio             String?  @db.Text
+
+  user User @relation(fields: [id], references: [id])
+  userId String @unique
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@map("vet_profiles")
+}
