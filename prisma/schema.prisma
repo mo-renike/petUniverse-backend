@@ -24,6 +24,8 @@ model User {
   lastName  String
   username  String   @unique
   role      UserRole @default(PET_OWNER)
+  resetToken String?
+  resetTokenExpiry DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
