@@ -11,7 +11,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(authenticateToken, authorizeRoles("VET"), createAppointment)
+  .post(authenticateToken, createAppointment)
   .get(authenticateToken, authorizeRoles("VET"), getVetAppointments);
 
 router

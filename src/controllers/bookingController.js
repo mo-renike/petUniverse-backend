@@ -1,8 +1,24 @@
 import { prisma } from "../utils/prisma.js";
 
 export const createAppointment = async (req, res) => {
-  const { vetId, details } = req.body;
+  const { vetId, details, scheduledAt } = req.body;
   const userId = req.user.id;
+
+  if (!scheduledAt || !details || !vetId) {
+    return res.status(400).json({ message: "Please fill all required fields" });
+  }
+
+  const scheduledDate = new Date(scheduledAt);
+  scheduledDate.setUTCHours(0, 0, 0, 0);
+
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+
+  if (scheduledDate < today) {
+    return res
+      .status(400)
+      .json({ message: "Cannot book an appointment in the past" });
+  }
 
   try {
     const existingActiveAppointment = await prisma.appointment.findFirst({
@@ -22,10 +38,6 @@ export const createAppointment = async (req, res) => {
       });
     }
 
-    if (!vetId) {
-      return res.status(400).json({ message: "Vet ID is required" });
-    }
-
     const vet = await prisma.user.findUnique({
       where: {
         id: vetId,
@@ -40,15 +52,12 @@ export const createAppointment = async (req, res) => {
       return res.status(404).json({ message: "Vet not found" });
     }
 
-    const now = new Date();
-    const resetTime = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-
     const appointmentCount = await prisma.appointment.count({
       where: {
         vetId,
-        createdAt: {
-          gte: resetTime,
-          lte: now,
+        scheduledAt: {
+          gte: scheduledDate,
+          lt: new Date(scheduledDate.getTime() + 24 * 60 * 60 * 1000),
         },
         status: {
           not: "CANCELLED",
@@ -59,7 +68,8 @@ export const createAppointment = async (req, res) => {
     const maxAppointments = vet.maxDailyAppointments ?? 5;
     if (appointmentCount >= maxAppointments) {
       return res.status(400).json({
-        message: "This vet has reached their maximum appointments for today",
+        message:
+          "This vet has reached their maximum appointments for the selected date",
       });
     }
 
@@ -69,20 +79,11 @@ export const createAppointment = async (req, res) => {
         userId,
         details,
         status: "PENDING",
+        scheduledAt: scheduledDate,
       },
       include: {
-        vet: {
-          select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
-        user: {
-          select: {
-            firstName: true,
-            lastName: true,
-          },
-        },
+        vet: { select: { firstName: true, lastName: true } },
+        user: { select: { firstName: true, lastName: true } },
       },
     });
 

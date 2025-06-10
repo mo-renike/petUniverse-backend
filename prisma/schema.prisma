@@ -40,8 +40,9 @@ model User {
     maxDailyAppointments Int? @default(5)
   
 
-  bookedAppiontment Appointment[] @relation("UserAppointments")
-  vetAppiontment Appointment[] @relation("VetAppointments")
+ bookedAppointments Appointment[] @relation("UserAppointments")
+vetAppointments    Appointment[] @relation("VetAppointments")
+
 
 
   @@map("users")
@@ -53,6 +54,9 @@ model Appointment {
   userId    String
   details   String
   status    AppointmentStatus @default(PENDING)
+
+  scheduledAt DateTime 
+
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
   
