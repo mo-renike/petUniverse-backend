@@ -137,6 +137,42 @@ export const updateVetMaxAppointments = async (req, res) => {
   }
 };
 
+export const getVetMaxAppointments = async (req, res) => {
+  const vetId = req.user.id;
+  const { maxDailyAppointments } = req.body;
+
+  try {
+    if (req.user.role !== "ADMIN" && req.user.id !== vetId) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    const vetAppointment = await prisma.user.findFirst({
+      where: {
+        id: vetId,
+        role: "VET",
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        maxDailyAppointments: true,
+      },
+    });
+
+    return res.json({
+      message: `Max appointments for VET ${vetAppointment.firstName} ${vetAppointment.lastName}`,
+
+      vet: vetAppointment,
+    });
+  } catch (error) {
+    console.error("Error updating max appointments:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      error: error.message,
+    });
+  }
+};
+
 export const updateAppointmentStatus = async (req, res) => {
   const { id: appointmentId } = req.params;
 
