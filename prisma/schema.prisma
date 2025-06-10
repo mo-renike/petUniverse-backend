@@ -16,6 +16,14 @@ enum UserRole {
   ADMIN
 }
 
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  INPROGRESS
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
@@ -29,5 +37,36 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+    maxDailyAppointments Int? @default(5)
+  
+
+ bookedAppointments Appointment[] @relation("UserAppointments")
+vetAppointments    Appointment[] @relation("VetAppointments")
+
+
+
   @@map("users")
 } 
+
+model Appointment {
+    id        String             @id @default(uuid())
+  vetId     String
+  userId    String
+  details   String
+  status    AppointmentStatus @default(PENDING)
+
+  scheduledAt DateTime 
+
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  
+  @@index([vetId, createdAt], name: "vet_created_at_index")
+  @@index([userId, vetId, status], name: "user_vet_status_index")
+
+  vet        User               @relation("VetAppointments", fields: [vetId], references: [id])
+  user       User               @relation("UserAppointments", fields: [userId], references: [id])
+
+
+  @@map("appointments")
+}
+
