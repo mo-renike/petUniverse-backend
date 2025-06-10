@@ -18,6 +18,8 @@ export const createPost = async (req, res) =>{
         );
         res.status(201).json(post)
     } catch (error) {
+        console.log("Error creating post: ", error);
+        
         res.status(501).send("Could not create post :( , try recreating post or hold on for a while...:) ")
     }
 }
@@ -31,8 +33,10 @@ export const getPosts = async(req, res)=>{
                 }
             }
         );
-        res.status(201).json(posts)
+        res.status(200).json(posts)
     } catch (error) {
+        console.log("error creating posts: ", error);
+        
      res.status(501).send("Failed to fetch posts, refresh or call the frontend developer, not me :)")
     }
 }
