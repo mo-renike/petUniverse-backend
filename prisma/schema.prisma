@@ -49,6 +49,8 @@ model Post{
   comments Comment[]
 }
 
+//Comment Schema 
+
 model Comment{
   id  Int @id @default(autoincrement())
   content String
