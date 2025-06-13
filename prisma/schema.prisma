@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-}
+}   
 
 enum UserRole {
   PET_OWNER
@@ -46,6 +46,39 @@ vetAppointments    Appointment[] @relation("VetAppointments")
 
 
   @@map("users")
+  posts Post[]
+
+  comments Comment[]
+} 
+
+//Post Schema
+
+model Post{
+  id  Int @id @default(autoincrement())
+  title String
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  comments Comment[]
+}
+
+//Comment Schema 
+
+model Comment{
+  id  Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+  }
+=======
 } 
 
 model Appointment {
