@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './src/routes/authRoutes.js';
+import petRoutes from './src/routes/routePet.js';
 
 dotenv.config();
 const app = express();
@@ -15,6 +16,14 @@ app.use('/api/auth', authRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to PetUniverse Connect API');
 });
+
+
+
+
+
+app.use('/pets', petRoutes);
+
+
 
 
 app.listen(PORT, async () => {
