@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-}   
+}
 
 enum UserRole {
   PET_OWNER
@@ -33,93 +33,87 @@ model User {
   username  String   @unique
   role      UserRole @default(PET_OWNER)
 
-  VetProfile    VetProfile?
-  resetToken String?
+  VetProfile       VetProfile?
+  resetToken       String?
   resetTokenExpiry DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
-    maxDailyAppointments Int? @default(5)
-  
+  maxDailyAppointments Int? @default(5)
 
- bookedAppointments Appointment[] @relation("UserAppointments")
-vetAppointments    Appointment[] @relation("VetAppointments")
-
-
+  bookedAppointments Appointment[] @relation("UserAppointments")
+  vetAppointments    Appointment[] @relation("VetAppointments")
+  Post               Post[]
+  Comment            Comment[]
 
   @@map("users")
-} 
-model VetProfile {
-  id String @id @default(uuid())
-  specialization   String
-  yearsExperience Int @map("years_experience")
-  location        String
-  phoneNumber     Int
-  email           String
-  isAvailable    Boolean @default(true)
-  bio             String?  @db.Text
+}
 
-  user User @relation(fields: [id], references: [id])
-  userId String @unique
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+model VetProfile {
+  id              String  @id @default(uuid())
+  specialization  String
+  yearsExperience Int     @map("years_experience")
+  location        String
+  phoneNumber     String
+  isAvailable     Boolean @default(true)
+  bio             String? @db.Text
+
+  userId    String   @unique
+  user  User @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("vet_profiles")
 }
-  posts Post[]
 
-  comments Comment[]
- 
+//posts Post[]
+
+//comments Comment[]
 
 //Post Schema
 
-model Post{
-  id  Int @id @default(autoincrement())
-  title String
-  content String
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
 
   comments Comment[]
 }
 
 //Comment Schema 
 
-model Comment{
-  id  Int @id @default(autoincrement())
-  content String
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
   createdAt DateTime @default(now())
 
-  author User @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id])
   authorId String
 
-  post Post @relation(fields: [postId], references: [id])
+  post   Post @relation(fields: [postId], references: [id])
   postId Int
-  }
-
-
-
-model Appointment {
-    id        String             @id @default(uuid())
-  vetId     String
-  userId    String
-  details   String
-  status    AppointmentStatus @default(PENDING)
-
-  scheduledAt DateTime 
-
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  
-  @@index([vetId, createdAt], name: "vet_created_at_index")
-  @@index([userId, vetId, status], name: "user_vet_status_index")
-
-  vet        User               @relation("VetAppointments", fields: [vetId], references: [id])
-  user       User               @relation("UserAppointments", fields: [userId], references: [id])
-
-
-  @@map("appointments")
 }
 
+model Appointment {
+  id      String            @id @default(uuid())
+  vetId   String
+  userId  String
+  details String
+  status  AppointmentStatus @default(PENDING)
+
+  scheduledAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vet  User @relation("VetAppointments", fields: [vetId], references: [id])
+  user User @relation("UserAppointments", fields: [userId], references: [id])
+
+  @@index([vetId, createdAt], name: "vet_created_at_index")
+  @@index([userId, vetId, status], name: "user_vet_status_index")
+  @@map("appointments")
+}
