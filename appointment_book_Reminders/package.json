@@ -1,0 +1,30 @@
+{
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "node-cron": "^4.1.0",
+    "nodemailer": "^7.0.3",
+    "sequelize": "^6.37.7"
+  },
+  "name": "appointmentnotifications",
+  "version": "1.0.0",
+  "description": "This project implements a system for sending notifications, primarily triggered by cron jobs, for appointments and other relevant events.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "cron": "node cron.js",
+    "cron:dev": "nodemon cron.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
