@@ -11,7 +11,11 @@ export const register = async (req, res) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { email, password, username, firstName, lastName, role } = req.body;
+        const { firstName,
+            lastName,
+            username,
+            email,
+            password, role } = req.body;
 
         // Validate required fields
         const missingFields = [];
