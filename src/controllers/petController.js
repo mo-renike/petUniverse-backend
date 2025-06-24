@@ -1,5 +1,5 @@
 // controllers/petController.js
-import Pet from '../models/Pet.js';
+import Pet from '../models/modelPet.js';
 
 // GET /pet
 export async function getAllPets(req, res) {
@@ -48,6 +48,6 @@ export async function deletePet(req, res) {
     await Pet.delete(req.params.id);
     res.status(200).json({ message: 'Pet deleted' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete pet'});
-  }
+    res.status(500).json({ error: 'Failed to delete pet' });
+  }
 }
