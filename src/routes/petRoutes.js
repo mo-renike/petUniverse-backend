@@ -7,8 +7,11 @@ import {
   updatePet,
   deletePet
 } from '../controllers/petController.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
+
+router.use(authenticateToken);
 
 router.get('/', getAllPets);
 router.get('/:id', getPetById);
