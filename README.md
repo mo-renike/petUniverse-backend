@@ -1,5 +1,7 @@
 # 🐾 PetUniverse Connect – Backend API
 
+[📖 See Full API Endpoints Summary](./API_ENDPOINTS.md)
+
 A RESTful backend API built with **Node.js**, **Express**, and **Prisma ORM** to power a comprehensive pet care platform. This service supports pet profile management, health records, reminders, and a social forum for pet owners.
 
 ---
