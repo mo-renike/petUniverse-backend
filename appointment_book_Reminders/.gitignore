@@ -1,0 +1,9 @@
+.env
+node_modules/
+config/
+routes/
+data/
+cron/missedAppointments.js
+cron/appointmentReminder.js
+utils/
+fixNotifications.js
