@@ -1,16 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from '../utils/prisma.js'
 
-const prisma = new PrismaClient()
-
-export const createPost = async (req, res) =>{
-    const {title, content, authorId} = req.body
+export const createPost = async (req, res) => {
+    const { title, content, authorId } = req.body
 
     try {
         const post = await prisma.post.create(
             {
                 data: {
                     title,
-                    content, 
+                    content,
                     authorId,
                 }
             }
@@ -19,16 +17,16 @@ export const createPost = async (req, res) =>{
         res.status(201).json(post)
     } catch (error) {
         console.log("Error creating post: ", error);
-        
+
         res.status(501).send("Could not create post :( , try recreating post or hold on for a while...:) ")
     }
 }
 
-export const getPosts = async(req, res)=>{
+export const getPosts = async (req, res) => {
     try {
         const posts = await prisma.post.findMany(
             {
-                include:{
+                include: {
                     comments: true
                 }
             }
@@ -36,7 +34,7 @@ export const getPosts = async(req, res)=>{
         res.status(200).json(posts)
     } catch (error) {
         console.log("error creating posts: ", error);
-        
-     res.status(501).send("Failed to fetch posts, refresh or call the frontend developer, not me :)")
+
+        res.status(501).send("Failed to fetch posts, refresh or call the frontend developer, not me :)")
     }
 }
