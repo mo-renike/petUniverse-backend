@@ -24,16 +24,10 @@
                             "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"username\": \"testuser\",\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/auth/register",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/auth/register",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "auth",
-                                "register"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -53,16 +47,10 @@
                             "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/auth/login",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/auth/login",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "auth",
-                                "login"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -82,16 +70,10 @@
                             "raw": "{\n  \"email\": \"test@example.com\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/auth/forgot-password",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/auth/forgot-password",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "auth",
-                                "forgot-password"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -111,16 +93,10 @@
                             "raw": "{\n  \"token\": \"<resetToken>\",\n  \"newPassword\": \"newpassword123\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/auth/reset-password",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/auth/reset-password",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "auth",
-                                "reset-password"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -131,43 +107,6 @@
             "name": "Pets",
             "item": [
                 {
-                    "name": "Get All Pets",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "http://localhost:8080/api/pets",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "pets"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "Get Pet By ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "http://localhost:8080/api/pets/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "pets",
-                                "1"
-                            ]
-                        }
-                    }
-                },
-                {
                     "name": "Create Pet",
                     "request": {
                         "method": "POST",
@@ -175,22 +114,40 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
                             }
                         ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/pets",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"name\": \"Buddy\",\n  \"type\": \"Dog\",\n  \"age\": 3\n}"
-                        },
+                            "raw": "{\n  \"name\": \"Buddy\",\n  \"age\": 3,\n  \"type\": \"Dog\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get My Pets",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
                         "url": {
-                            "raw": "http://localhost:8080/api/pets",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/pets",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "pets"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -203,24 +160,22 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
                             }
                         ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/pets/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n  \"name\": \"Buddy Updated\",\n  \"type\": \"Dog\",\n  \"age\": 4\n}"
-                        },
-                        "url": {
-                            "raw": "http://localhost:8080/api/pets/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "pets",
-                                "1"
-                            ]
+                            "raw": "{\n  \"name\": \"Buddy\",\n  \"age\": 4,\n  \"type\": \"Dog\"\n}"
                         }
                     }
                 },
@@ -229,16 +184,10 @@
                     "request": {
                         "method": "DELETE",
                         "url": {
-                            "raw": "http://localhost:8080/api/pets/1",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/pets/1",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "pets",
-                                "1"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -256,23 +205,22 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
                             }
                         ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/vets",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
                         "body": {
                             "mode": "raw",
                             "raw": "{\n  \"specialization\": \"Surgery\",\n  \"yearsExperience\": 5,\n  \"location\": \"NYC\",\n  \"phoneNumber\": \"1234567890\",\n  \"bio\": \"Experienced vet.\",\n  \"isAvailable\": true,\n  \"userId\": 2\n}"
-                        },
-                        "url": {
-                            "raw": "http://localhost:8080/api/vets",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "vets"
-                            ]
                         }
                     }
                 },
@@ -281,15 +229,10 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://localhost:8080/api/vets",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/vets",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "vets"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -299,16 +242,10 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://localhost:8080/api/vets/1",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/vets/1",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "vets",
-                                "1"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -333,15 +270,10 @@
                             "raw": "{\n  \"title\": \"My Pet Story\",\n  \"content\": \"This is a story about my pet.\",\n  \"authorId\": 1\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/posts",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/posts",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "posts"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -351,15 +283,10 @@
                     "request": {
                         "method": "GET",
                         "url": {
-                            "raw": "http://localhost:8080/api/posts",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/posts",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "posts"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -372,24 +299,22 @@
                             {
                                 "key": "Content-Type",
                                 "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
                             }
                         ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/comments/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
                         "body": {
                             "mode": "raw",
                             "raw": "{\n  \"content\": \"Great post!\",\n  \"authorId\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "http://localhost:8080/api/comments/1",
-                            "protocol": "http",
-                            "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "comments",
-                                "1"
-                            ]
                         }
                     }
                 }
@@ -417,15 +342,29 @@
                             "raw": "{\n  \"vetId\": 2,\n  \"details\": \"Annual checkup\",\n  \"scheduledAt\": \"2024-07-01T00:00:00.000Z\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/bookings",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/bookings",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "bookings"
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get My Bookings",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/bookings",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -437,19 +376,14 @@
                         "header": [
                             {
                                 "key": "Authorization",
-                                "value": "Bearer <token>"
+                                "value": "Bearer {{token}}"
                             }
                         ],
                         "url": {
-                            "raw": "http://localhost:8080/api/bookings",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/bookings",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "bookings"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -473,17 +407,10 @@
                             "raw": "{\n  \"status\": \"COMPLETED\"\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/bookings/1/status",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/bookings/1/status",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "bookings",
-                                "1",
-                                "status"
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }
@@ -507,16 +434,279 @@
                             "raw": "{\n  \"maxDailyAppointments\": 10\n}"
                         },
                         "url": {
-                            "raw": "http://localhost:8080/api/bookings/max-appointment",
-                            "protocol": "http",
+                            "raw": "https://petuniverse-backend.onrender.com/api/bookings/max-appointment",
+                            "protocol": "https",
                             "host": [
-                                "localhost"
-                            ],
-                            "port": "8080",
-                            "path": [
-                                "api",
-                                "bookings",
-                                "max-appointment"
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Vet Appointments (Vet Only)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/bookings/vets",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Comments",
+            "item": [
+                {
+                    "name": "Create Comment",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/comments/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"content\": \"Great post!\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get My Comments",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/comments",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Comment by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/comments/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Comment",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/comments/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"content\": \"Updated comment\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Comment",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/comments/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Posts",
+            "item": [
+                {
+                    "name": "Get Posts",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/posts",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Post",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/posts",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"title\": \"My Pet Story\",\n  \"content\": \"This is a great story about my pet.\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "List All Users",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/users",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get User by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/users/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update User",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/users/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"role\": \"ADMIN\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete User",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "https://petuniverse-backend.onrender.com/api/users/1",
+                            "protocol": "https",
+                            "host": [
+                                "petuniverse-backend.onrender.com"
                             ]
                         }
                     }

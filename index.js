@@ -27,6 +27,8 @@ app.use('/api/comments', commentRoutes)
 app.use('/api/pets', petRoutes);
 app.use('/api/users', userRoutes);
 
+app.use('/api/posts', postRoutes);
+
 app.get("/", (req, res) => {
   res.send("Welcome to PetUniverse Connect API");
 });
