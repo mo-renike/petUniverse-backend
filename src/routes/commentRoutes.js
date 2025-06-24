@@ -1,8 +1,21 @@
 import { Router } from "express";
-import { createComment } from "../controllers/commentController.js";
+import {
+    createComment,
+    getAllComments,
+    getCommentById,
+    updateComment,
+    deleteComment
+} from "../controllers/commentController.js";
+import { authenticateToken } from '../middleware/auth.js';
 
-const router = Router()
+const router = Router();
 
-router.post('/:postid', createComment)
+router.use(authenticateToken);
 
-export default router
+router.post('/:postid', createComment);
+router.get('/', getAllComments);
+router.get('/:id', getCommentById);
+router.put('/:id', updateComment);
+router.delete('/:id', deleteComment);
+
+export default router;

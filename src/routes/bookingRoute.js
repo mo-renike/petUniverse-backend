@@ -1,24 +1,28 @@
 import express from "express";
-import { authenticateToken, authorizeRoles } from "../middleware/auth.js";
+import { authenticateToken } from "../middleware/auth.js";
 import {
   createAppointment,
   updateVetMaxAppointments,
   updateAppointmentStatus,
   getVetAppointments,
+  getAllBookings,
+  getBookingById,
+  updateBooking,
+  deleteBooking
 } from "../controllers/bookingController.js";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .post(authenticateToken, createAppointment)
-  .get(authenticateToken, authorizeRoles("VET"), getVetAppointments);
+router.use(authenticateToken);
 
-router
-  .route("/:id/status")
-  .patch(authenticateToken, authorizeRoles("VET"), updateAppointmentStatus);
+router.post("/", createAppointment);
+router.get("/", getAllBookings);
+router.get("/:id", getBookingById);
+router.put("/:id", updateBooking);
+router.delete("/:id", deleteBooking);
 
-router
-  .route("/max-appointment")
-  .patch(authenticateToken, authorizeRoles("VET"), updateVetMaxAppointments);
+router.route("/max-appointment").patch(updateVetMaxAppointments);
+router.route("/:id/status").patch(updateAppointmentStatus);
+router.route("/vets").get(getVetAppointments);
+
 export default router;

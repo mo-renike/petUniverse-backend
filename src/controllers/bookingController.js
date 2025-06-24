@@ -21,6 +21,15 @@ export const createAppointment = async (req, res) => {
   }
 
   try {
+    // Only allow pet owners or vets to create bookings for themselves
+    if (
+      req.user.role !== "ADMIN" &&
+      req.user.role !== "PET_OWNER" &&
+      req.user.role !== "VET"
+    ) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+
     const existingActiveAppointment = await prisma.appointment.findFirst({
       where: {
         userId,
@@ -251,5 +260,81 @@ export const getVetAppointments = async (req, res) => {
       message: "Internal server error",
       error: error.message,
     });
+  }
+};
+
+// Get all bookings (admin: all, user: own, vet: own)
+export const getAllBookings = async (req, res) => {
+  try {
+    let bookings;
+    if (req.user.role === "ADMIN") {
+      bookings = await prisma.appointment.findMany();
+    } else if (req.user.role === "VET") {
+      bookings = await prisma.appointment.findMany({ where: { vetId: req.user.id } });
+    } else {
+      bookings = await prisma.appointment.findMany({ where: { userId: req.user.id } });
+    }
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch bookings" });
+  }
+};
+
+// Get booking by ID (admin: any, vet: own, user: own)
+export const getBookingById = async (req, res) => {
+  try {
+    const booking = await prisma.appointment.findUnique({ where: { id: req.params.id } });
+    if (!booking) return res.status(404).json({ error: "Booking not found" });
+    if (
+      req.user.role !== "ADMIN" &&
+      booking.userId !== req.user.id &&
+      booking.vetId !== req.user.id
+    ) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch booking" });
+  }
+};
+
+// Update booking (admin: any, vet: own, user: own)
+export const updateBooking = async (req, res) => {
+  try {
+    const booking = await prisma.appointment.findUnique({ where: { id: req.params.id } });
+    if (!booking) return res.status(404).json({ error: "Booking not found" });
+    if (
+      req.user.role !== "ADMIN" &&
+      booking.userId !== req.user.id &&
+      booking.vetId !== req.user.id
+    ) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+    const updated = await prisma.appointment.update({
+      where: { id: req.params.id },
+      data: req.body,
+    });
+    res.json({ message: "Booking updated", booking: updated });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update booking" });
+  }
+};
+
+// Delete booking (admin: any, vet: own, user: own)
+export const deleteBooking = async (req, res) => {
+  try {
+    const booking = await prisma.appointment.findUnique({ where: { id: req.params.id } });
+    if (!booking) return res.status(404).json({ error: "Booking not found" });
+    if (
+      req.user.role !== "ADMIN" &&
+      booking.userId !== req.user.id &&
+      booking.vetId !== req.user.id
+    ) {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+    await prisma.appointment.delete({ where: { id: req.params.id } });
+    res.json({ message: "Booking deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete booking" });
   }
 };

@@ -25,6 +25,10 @@ class Pet {
       data,
     });
   }
+
+  static async getByOwnerId(ownerId) {
+    return await prisma.pet.findMany({ where: { ownerId } });
+  }
 }
 
 export default Pet;

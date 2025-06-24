@@ -7,6 +7,7 @@ import authRoutes from "./src/routes/authRoutes.js";
 import bookingRoutes from "./src/routes/bookingRoute.js";
 import vetRoutes from './src/routes/vetRoutes.js'
 import petRoutes from './src/routes/petRoutes.js'
+import userRoutes from './src/routes/userRoutes.js'
 
 dotenv.config();
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api/vets', vetRoutes)
 //Routes for community forum     app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes)
 app.use('/api/pets', petRoutes);
+app.use('/api/users', userRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to PetUniverse Connect API");

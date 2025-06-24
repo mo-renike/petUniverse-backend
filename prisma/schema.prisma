@@ -45,6 +45,7 @@ model User {
   vetAppointments    Appointment[] @relation("VetAppointments")
   Post               Post[]
   Comment            Comment[]
+  pets              Pet[]
 
   @@map("users")
 }
@@ -116,4 +117,16 @@ model Appointment {
   @@index([vetId, createdAt], name: "vet_created_at_index")
   @@index([userId, vetId, status], name: "user_vet_status_index")
   @@map("appointments")
+}
+
+model Pet {
+  id        Int      @id @default(autoincrement())
+  name      String
+  type      String
+  breed     String?
+  age       Int?
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
